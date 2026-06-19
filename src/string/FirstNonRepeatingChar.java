@@ -30,10 +30,30 @@ public class FirstNonRepeatingChar {
         return '_';
     }
 
+    public static char optimisedSolution(String str) {
+
+        if (str == null || str.isEmpty())
+            return '_';
+
+        int[] freq = new int[256];
+
+        for (char c : str.toCharArray()) {
+            freq[c]++;
+        }
+
+        for (char c : str.toCharArray()) {
+            if (freq[c] == 1)
+                return c;
+        }
+
+        return '_';
+    }
+
     public static void main(String[] args) {
 
         String str = "swiss";
 
         System.out.println(firstNonRepeatingChar2(str));
+        System.out.println(optimisedSolution(str));
     }
 }

@@ -38,12 +38,27 @@ public class FindDuplicateElements {
 
     }
 
+    public static List<Integer> optimisedSolution(int[] arr) {
+
+        Set<Integer> seen = new HashSet<>();
+        Set<Integer> duplicates = new HashSet<>();
+
+        for (int num : arr) {
+            if (!seen.add(num)) {
+                duplicates.add(num);
+            }
+        }
+
+        return new ArrayList<>(duplicates);
+    }
+
     public static void main(String[] args) {
 
         int[] arr = new int[] { 1, 2, 3, 4, 2, 5, 7, 7, 3, 3 };
 
         System.out.println(findDuplicates1(arr));
         System.out.println(findDuplicates2(arr));
+        System.out.println(optimisedSolution(arr));
     }
 
 }

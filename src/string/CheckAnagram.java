@@ -9,14 +9,21 @@ public class CheckAnagram {
     public static boolean checkAnagram1(String a, String b) {
 
         Map<Character, Integer> map = new HashMap<>();
+
         for (char c : a.toCharArray())
             map.put(c, map.getOrDefault(c, 0) + 1);
+
         for (char c : b.toCharArray()) {
-            if (!map.containsKey(c) || map.get(c) == 0)
+
+            if (!map.containsKey(c))
                 return false;
-            if (map.get(c) >= 1)
-                map.put(c, map.get(c) - 1);
+
+            map.put(c, map.get(c) - 1);
+
+            if (map.get(c) < 0)
+                return false;
         }
+
         return true;
 
     }
@@ -35,6 +42,29 @@ public class CheckAnagram {
 
     }
 
+    public static boolean optimisedSolution(String a, String b) {
+
+        if (a == null || b == null)
+            return false;
+
+        if (a.length() != b.length())
+            return false;
+
+        int[] freq = new int[256];
+
+        for (char c : a.toCharArray())
+            freq[c]++;
+
+        for (char c : b.toCharArray())
+            freq[c]--;
+
+        for (int count : freq)
+            if (count != 0)
+                return false;
+
+        return true;
+    }
+
     public static void main(String[] args) {
 
         String a = "Java";
@@ -42,6 +72,7 @@ public class CheckAnagram {
 
         System.out.println(checkAnagram1(a, b));
         System.out.println(checkAnagram2(a, b));
+        System.out.println(optimisedSolution(a, b));
     }
 
 }
